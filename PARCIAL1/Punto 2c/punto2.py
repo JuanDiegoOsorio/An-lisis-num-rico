@@ -16,6 +16,7 @@ def main():
         Valn = ext1 - funcion(ext1) *( (ext1 - ext2) / funcion( ext1 ) - funcion(ext2) )
         Valn = round(Valn,7)
         ext2 = Valn
-        print("Error = "+str(exacto-Valn))
+        print("Valn = ",Valn)
+        print("Error = "+str(abs(exacto-Valn)))
         
 main()
