@@ -285,8 +285,7 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
                                initial = "One", label="What flow to plot?"),
               doJacob= picker("None"=0, "At Start"=1, "At Backward Limit"=2, "At Forward Limit"=3,
                               label="Jacobian", initial="None")
-              #              param1 = slider(.1,10,init=1,label="Parameter 1"),
-              #              param2 = slider(.1,10,init=1,label="Parameter 2")
+
   )
 }
 
