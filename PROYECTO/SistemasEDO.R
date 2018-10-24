@@ -1,15 +1,13 @@
 
-install.packages("devtools")
 install.packages("manipulate")
+install.packages("devtools")
 library(devtools)
 library(manipulate)
 devtools::install_github("ProjectMOSAIC/fetch")
 require("ProjectMOSAIC/fetch")
 fetch::fetchData("mPP.R")
 fetch::fetchData("DiffEQ.R")
-
-
-mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
+sisEq = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
   if (!require(manipulate) | !require(lattice)) stop("Must have manipulate package.")
   on.exit()
   
@@ -86,7 +84,7 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
     return(list(xport,yport))
     
   }
-
+  #=========
   flow.plot = function(fun,xlim=c(0,1), ylim=c(0,1), resol=10, col="black",
                        add=FALSE,EW=NULL,NS=NULL,both=TRUE) {
     current.dyn.system <<- fun
@@ -135,7 +133,7 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
               length=.04, col=EW);
     }
   }
-
+  #================
   jacobian <- function(fun=NULL,x=NULL, y=NULL,h=0.000001){
     if (is.null(fun) )  fun = current.dyn.system
     foo <- fun(x,y);
@@ -148,16 +146,17 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
     return(matrix( c(A,B,C,D ), 2,2, byrow=T))
   }
   
+  # ========
   doPlot = function(xstart,ystart,Ntraj,tdur,tback,
                     nullclines=FALSE,reviseWhat,flowWhat,param1,param2,doJacob) {
-    # set initial condition
+  
     initCond[1] <<- xstart
     initCond[2] <<- ystart
     arg.names = names(formals(DE) )
     # Handle editing of the system, setting initial condition here
     # Need to set state manually to avoid lockup
     if( reviseWhatState != reviseWhat ) {
-      # state changed, so do something
+      
       reviseWhatState <<- reviseWhat
       #       if(!is.null(TS[[Ntraj]]$system)){
       #         DE <<- TS[[Ntraj]]$system
@@ -179,7 +178,7 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
     if( tdur > 0 )
       TStemp$forward <<- solve.DE( TStemp$system, init=initCond, tlim=c(0,tdur) )
     else TStemp$forward <<- NULL
-    
+    # Solve the trajectory backward here.  (Does solve.DE do this?  Add a backward flag!)
     if (tback < 0 )
       TStemp$back <<- solve.DE( TStemp$system, init=initCond, tlim=c(0,tback) )
     else TStemp$back <<- NULL
@@ -226,12 +225,11 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
       print(jake)
       print("Eigenvalues")
       print(eig[1])
-    }
-
+ 
     port=plotPort(TSfull, names=stateNames, notNull=notNull, Ntraj=Ntraj)
     
     
-    #=============
+
     myPanel=function(x,y, ...){
       # Plot out the flow field
       flow.plot( TS[[flowWhat]]$system, xlim=xlim, ylim=ylim)
@@ -268,7 +266,7 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
     suppressWarnings(print(port[[1]], position=c(0, .27, 1, .5), more=TRUE))
     suppressWarnings(print(port[[2]], position=c(0, 0, 1, .29), more=FALSE))
   }
-
+  # =======
   manipulate( doPlot(xstart=xstart, ystart=ystart, 
                      Ntraj=Ntraj,tdur=tdur,tback=tback,
                      nullclines=nullclines,reviseWhat=reviseWhat,
@@ -285,9 +283,11 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
                                initial = "One", label="What flow to plot?"),
               doJacob= picker("None"=0, "At Start"=1, "At Backward Limit"=2, "At Forward Limit"=3,
                               label="Jacobian", initial="None")
-
+              #              param1 = slider(.1,10,init=1,label="Parameter 1"),
+              #              param2 = slider(.1,10,init=1,label="Parameter 2")
   )
 }
+
 
 
 
