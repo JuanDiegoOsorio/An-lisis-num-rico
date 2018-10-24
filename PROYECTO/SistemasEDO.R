@@ -86,7 +86,7 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
     return(list(xport,yport))
     
   }
-  #=========
+
   flow.plot = function(fun,xlim=c(0,1), ylim=c(0,1), resol=10, col="black",
                        add=FALSE,EW=NULL,NS=NULL,both=TRUE) {
     current.dyn.system <<- fun
@@ -135,7 +135,7 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
               length=.04, col=EW);
     }
   }
-  #================
+
   jacobian <- function(fun=NULL,x=NULL, y=NULL,h=0.000001){
     if (is.null(fun) )  fun = current.dyn.system
     foo <- fun(x,y);
@@ -148,7 +148,6 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
     return(matrix( c(A,B,C,D ), 2,2, byrow=T))
   }
   
-  # ========
   doPlot = function(xstart,ystart,Ntraj,tdur,tback,
                     nullclines=FALSE,reviseWhat,flowWhat,param1,param2,doJacob) {
     # set initial condition
@@ -173,16 +172,14 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
       }
       
     }
-    # ... system editing code here
-    
-    # Store the results in the currently selected trajectory in "scratch" index 1
+
     TStemp$init <<- initCond
     TStemp$system <<- TS[[Ntraj]]$system
     # Find the forward trajectory
     if( tdur > 0 )
       TStemp$forward <<- solve.DE( TStemp$system, init=initCond, tlim=c(0,tdur) )
     else TStemp$forward <<- NULL
-    # Solve the trajectory backward here.  (Does solve.DE do this?  Add a backward flag!)
+    
     if (tback < 0 )
       TStemp$back <<- solve.DE( TStemp$system, init=initCond, tlim=c(0,tback) )
     else TStemp$back <<- NULL
@@ -230,7 +227,7 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
       print("Eigenvalues")
       print(eig[1])
     }
-    #Portrait Plots  
+
     port=plotPort(TSfull, names=stateNames, notNull=notNull, Ntraj=Ntraj)
     
     
@@ -240,9 +237,7 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
       flow.plot( TS[[flowWhat]]$system, xlim=xlim, ylim=ylim)
       # Plot out the nullclines
       if( nullclines ) show.nullclines()
-      # plot out the trajectories
-      # NEED TO DO BOTH FORWARD AND BACKWARD, maybe alpha different for backward, or darken a bit
-      # here is the forward one
+
       for( k in 1:length(TS)) {
         if( !is.null(TS[[k]]$system)) {
           if( !is.null(TS[[k]]$forward) ){
@@ -273,7 +268,7 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
     suppressWarnings(print(port[[1]], position=c(0, .27, 1, .5), more=TRUE))
     suppressWarnings(print(port[[2]], position=c(0, 0, 1, .29), more=FALSE))
   }
-  # =======
+
   manipulate( doPlot(xstart=xstart, ystart=ystart, 
                      Ntraj=Ntraj,tdur=tdur,tback=tback,
                      nullclines=nullclines,reviseWhat=reviseWhat,
