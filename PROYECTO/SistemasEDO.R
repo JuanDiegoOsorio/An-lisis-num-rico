@@ -1,4 +1,5 @@
 library(devtools)
+library(manipulate)
 install.packages("devtools")
 devtools::install_github("ProjectMOSAIC/fetch")
 require("ProjectMOSAIC/fetch")
