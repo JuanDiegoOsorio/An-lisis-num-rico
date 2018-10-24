@@ -7,7 +7,7 @@ devtools::install_github("ProjectMOSAIC/fetch")
 require("ProjectMOSAIC/fetch")
 fetch::fetchData("mPP.R")
 fetch::fetchData("DiffEQ.R")
-sisEq = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
+mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
   if (!require(manipulate) | !require(lattice)) stop("Must have manipulate package.")
   on.exit()
   
