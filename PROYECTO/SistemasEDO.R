@@ -285,9 +285,9 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
                 #              param1 = slider(.1,10,init=1,label="Parameter 1"),
                 #              param2 = slider(.1,10,init=1,label="Parameter 2")
     )
-  
   }
 }
+  
   
   
   SIR = function(S, I){ a =0.0026; b=0.5
