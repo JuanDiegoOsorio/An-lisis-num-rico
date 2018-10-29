@@ -1,0 +1,465 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Taller No. 2},
+            pdfauthor={Kevin Pelaez - Juan Diego Osorio},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Taller No. 2}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Kevin Pelaez - Juan Diego Osorio}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{28 de octubre de 2018}
+
+
+\begin{document}
+\maketitle
+
+\begin{verbatim}
+## 
+## Attaching package: 'PolynomF'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:pracma':
+## 
+##     integral
+\end{verbatim}
+
+\subsection{PUNTO \#1}\label{punto-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Considere un cuerpo con temperatura interna \textbf{T}𝑇 el cual se
+  encuentra en un ambiente con temperatura constante\textbf{Te}. Suponga
+  que su masa \textbf{m}𝑚 concentrada en un solo punto. Entonces la
+  transferencia de calor entre el cuerpo y el entorno externo puede ser
+  descrita con la ley de Stefan-Boltzmann:
+\end{enumerate}
+
+\[
+v(t) = εγS(T^4(t)-T_e^4) 
+\] Donde, \textbf{t} es tiempo y \textbf{ε} es la constante de Boltzmann
+\((ε = 5.6x10^-8 J/m^2K^2s)\), \textbf{γ} es la constante de
+``Emisividad'' del cuerpo, \textbf{S} el área de superficie y \textbf{v}
+es la tasa de transferencia de calor. La tasa de variacion de la energía
+\(dT/dt = -v(t)/mC\) (C indica el calor específico del material que
+constituye el cuerpo). En consecuencia,
+
+\[
+dT/dt = -εγS(T^4(t)-T_e^4)/mC
+\] Usando el método de Euler (en R) y 20 intervalos iguales y t variando
+de 0 a 200 segundos, resuelva numéricamente la ecuación, si el cuerpo es
+un cubo de lados de longitud 1m y masa igual a 1Kg. Asuma, que T0 =
+180K, Te = 200K, g = 0.5 y C = 100J/(Kg/K). Hacer una representación
+gráfica del resultado.
+
+\begin{verbatim}
+##      X        Y
+## 21 200 192.6369
+\end{verbatim}
+
+\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\subsection{PUNTO \#2}\label{punto-2}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Obtenga cinco puntos de la solución de la ecuación, utilizando el
+  método de Taylor (los tres primeros términos)con h=0.1 implemente en R
+\end{enumerate}
+
+\[
+    dy/dx - (x+y) = 1 - x^2; y(0) =1 
+\]
+
+Grafique su solución y compare con la solución exacta, cuál es el error
+de truncamiento en cada paso
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{funcion4punto <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
+  \KeywordTok{exp}\NormalTok{(x) }\OperatorTok{*}\StringTok{ }\NormalTok{(x}\OperatorTok{^}\DecValTok{2}\OperatorTok{*}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{x) }\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{*}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{x) }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\NormalTok{\}}
+
+\NormalTok{num <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{)}
+\NormalTok{plotsish <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{taylor}\NormalTok{(funcion4punto, }\DataTypeTok{x0=}\DecValTok{0}\NormalTok{, }\DataTypeTok{n =} \DecValTok{3}\NormalTok{))}
+
+\KeywordTok{plot}\NormalTok{(plotsish, }\DataTypeTok{col =} \StringTok{"darkgreen"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"TAYLOR"}\NormalTok{)}
+
+\NormalTok{poliajuste <-}\StringTok{ }\KeywordTok{poly.calc}\NormalTok{(num,plotsish)}
+\KeywordTok{curve}\NormalTok{(poliajuste,}\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"yellow"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\subsection{PUNTO \#3}\label{punto-3}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Obtenga 20 puntos de la solución de la ecuación, utilizando el método
+  de Euler (los tres primeros términos) con h=0.1 \[
+  dy/dx - (x+y) = 1 - x^2; y(0) =1 
+  \] Grafique su solución y compare con la solución exacta, cuál es el
+  error de truncamiento en cada paso
+\end{enumerate}
+
+\subsection{PUNTO \#4}\label{punto-4}
+
+Implemente en R el siguiente algoritmo y aplíquelo para resolver la
+ecuación anterior
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Defina h y la cantidad de puntos a calcular m
+\item
+  Defina f(x,y) y la condicion iniccial (x0,y0)
+\item
+  para i =12, \ldots{}, m
+\item
+  K1= hf(xi, yi)
+\item
+  k2 = hf(xi + h, yi +h)
+\item
+  yi+1 = yi + 1/2 (k1 + k2)
+\item
+  xi+1 = xi + h
+\item
+  fin
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{funcion4punto <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x,y)\{}
+  \KeywordTok{return}\NormalTok{  (}\KeywordTok{exp}\NormalTok{(x) }\OperatorTok{*}\StringTok{ }\NormalTok{(x}\OperatorTok{^}\DecValTok{2}\OperatorTok{*}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{x) }\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{*}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{x) }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{))}
+\NormalTok{\}}
+
+\NormalTok{m <-}\StringTok{ }\DecValTok{5}
+  
+\NormalTok{h <-}\StringTok{ }\FloatTok{0.1}
+\NormalTok{ x0 <-}\StringTok{ }\DecValTok{1}
+\NormalTok{ y0 <-}\StringTok{ }\DecValTok{0}
+\ControlFlowTok{for}\NormalTok{ (i  }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{m)\{}
+\NormalTok{  k1 <-}\StringTok{ }\NormalTok{h }\OperatorTok{*}\StringTok{ }\KeywordTok{funcion4punto}\NormalTok{(x0, y0)}
+\NormalTok{  k2 <-}\StringTok{ }\NormalTok{h }\OperatorTok{*}\StringTok{ }\KeywordTok{funcion4punto}\NormalTok{(x0 }\OperatorTok{+}\StringTok{ }\NormalTok{h, y0}\OperatorTok{+}\NormalTok{h)}
+\NormalTok{  y0 <-}\StringTok{ }\NormalTok{y0 }\OperatorTok{+}\StringTok{ }\FloatTok{0.5} \OperatorTok{*}\StringTok{ }\NormalTok{(k1 }\OperatorTok{+}\StringTok{ }\NormalTok{k2)}
+\NormalTok{  x0 <-}\StringTok{ }\NormalTok{x0 }\OperatorTok{+}\StringTok{ }\NormalTok{h}
+\NormalTok{ \}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{PUNTO \#5}\label{punto-5}
+
+Utilizar la siguiente variación en el método de Euler, para resolver una
+ecuación diferencial ordinaria de primer orden, la cual calcula el
+promedio de las pendientes en cada paso
+
+\$\$
+
+y\_i+\{1 =\} y\_i + h/2 f((x\_i,y\_i) + f(x\_i+\{1, \}y\_i+\{1) \})
+
+\$\$
+
+Implemente un código en R, para este método y obtenga 10 puntos de la
+solución con h=0.1, grafíquela y compárela con el método de Euler:
+
+\[
+    dy/dx - (x+y) = 1 - x^2 =0 ; y(0) =1 
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{variacionMetodoEuler <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f, h, xi, yi, xf)}
+\NormalTok{\{}
+\NormalTok{  N =}\StringTok{ }\NormalTok{(xf }\OperatorTok{-}\StringTok{ }\NormalTok{xi) }\OperatorTok{/}\StringTok{ }\NormalTok{h}
+\NormalTok{  x =}\StringTok{ }\NormalTok{y =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(N}\OperatorTok{+}\DecValTok{1}\NormalTok{)}
+\NormalTok{  x[}\DecValTok{1}\NormalTok{] =}\StringTok{ }\NormalTok{xi; }
+\NormalTok{  y[}\DecValTok{1}\NormalTok{] =}\StringTok{ }\NormalTok{yi;}
+\NormalTok{  i =}\StringTok{ }\DecValTok{1}
+  \ControlFlowTok{while}\NormalTok{ (i }\OperatorTok{<=}\StringTok{ }\NormalTok{N)}
+\NormalTok{  \{}
+\NormalTok{    x[i}\OperatorTok{+}\DecValTok{1}\NormalTok{] =}\StringTok{ }\NormalTok{x[i]}\OperatorTok{+}\NormalTok{h}
+\NormalTok{    y[i}\OperatorTok{+}\DecValTok{1}\NormalTok{] =}\StringTok{ }\NormalTok{y[i]}\OperatorTok{+}\NormalTok{(h}\OperatorTok{/}\DecValTok{2}\NormalTok{)}\OperatorTok{*}\NormalTok{(}\KeywordTok{f}\NormalTok{(x[i],y[i]))}
+\NormalTok{    i =}\StringTok{ }\NormalTok{i}\OperatorTok{+}\DecValTok{1}
+\NormalTok{  \}}
+  \KeywordTok{return}\NormalTok{ (}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{X =}\NormalTok{ x, }\DataTypeTok{Y =}\NormalTok{ y))}
+\NormalTok{\}}
+\NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x,y) \{x}\OperatorTok{+}\NormalTok{y}\OperatorTok{-}\DecValTok{1}\OperatorTok{+}\NormalTok{x}\OperatorTok{^}\DecValTok{2}\NormalTok{\}}
+
+\NormalTok{e1 =}\StringTok{ }\KeywordTok{variacionMetodoEuler}\NormalTok{(f, }\FloatTok{0.1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{e1[}\KeywordTok{nrow}\NormalTok{(e1),]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    X        Y
+## 11 1 1.414725
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{); yy <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\KeywordTok{vectorfield}\NormalTok{(f, xx, yy, }\DataTypeTok{scale =} \FloatTok{0.1}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (xs }\ControlFlowTok{in} \KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.25}\NormalTok{)) }
+\NormalTok{\{}
+\NormalTok{  sol <-}\StringTok{ }\KeywordTok{rk4}\NormalTok{(f, }\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, xs, }\DecValTok{100}\NormalTok{)}
+  \KeywordTok{lines}\NormalTok{(sol}\OperatorTok{$}\NormalTok{x, sol}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{col=}\StringTok{"purple"}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{title}\NormalTok{(}\DataTypeTok{main=}\StringTok{"Campo Vectorial"}\NormalTok{, }\DataTypeTok{col.main=}\StringTok{"black"}\NormalTok{, }\DataTypeTok{font.main=}\DecValTok{4}\NormalTok{)}
+
+\KeywordTok{plot}\NormalTok{(e1, }\DataTypeTok{col =} \StringTok{"darkblue"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Grafica"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\subsection{PUNTO \#7}\label{punto-7}
+
+Pruebe el siguiente código en R del método de Runge Kutta de tercer y
+cuarto orden y obtenga 10 puntos de la solución con h=0.1, grafíquela y
+compárela con el método de Euler:
+
+\[
+    dy/dx - (x+y) = 1 - x^2 =0 ; y(0) =1 
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f<-}\ControlFlowTok{function}\NormalTok{(fcn,x,y)\{}
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{eval}\NormalTok{(fcn))}
+\NormalTok{\}}
+
+\NormalTok{obtenerErrorAbsoluto<-}\ControlFlowTok{function}\NormalTok{(x,y)\{}
+\NormalTok{  solucion=}\KeywordTok{exp}\NormalTok{(x)}\OperatorTok{*}\NormalTok{((}\OperatorTok{-}\NormalTok{x}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{x))}\OperatorTok{-}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{x)}\OperatorTok{+}\DecValTok{2}\NormalTok{)}
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{abs}\NormalTok{(y}\OperatorTok{-}\NormalTok{solucion))}
+\NormalTok{\}}
+
+\NormalTok{graficarCampoPendiente<-}\ControlFlowTok{function}\NormalTok{(x0, xn, y0, yn, fcn, numpendientes, metodo)\{}
+\NormalTok{  apma1 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(t, y, parameters)\{}
+\NormalTok{    a <-}\StringTok{ }\NormalTok{parameters[}\DecValTok{1}\NormalTok{] }
+\NormalTok{    dy <-}\StringTok{ }\NormalTok{a}\OperatorTok{*}\NormalTok{(}\KeywordTok{f}\NormalTok{(fcn, t, y))}
+    \KeywordTok{list}\NormalTok{(dy)}
+\NormalTok{  \} }
+\NormalTok{  apma1.flowField <-}\StringTok{ }\KeywordTok{flowField}\NormalTok{(apma1, }\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(x0, xn), }
+                               \DataTypeTok{y   =} \KeywordTok{c}\NormalTok{(y0, yn), }\DataTypeTok{parameters =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{), }
+                               \DataTypeTok{points =}\NormalTok{ numpendientes, }\DataTypeTok{system =} \StringTok{"one.dim"}\NormalTok{, }
+                               \DataTypeTok{add =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{"x"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"y"}\NormalTok{, }
+                               \DataTypeTok{main =}\NormalTok{ metodo)}
+  \KeywordTok{grid}\NormalTok{()}
+\NormalTok{\}}
+
+\NormalTok{graficarSolucionNumerica<-}\ControlFlowTok{function}\NormalTok{ (x, y)\{}
+  \KeywordTok{points}\NormalTok{ (x, y, }\DataTypeTok{pch=}\DecValTok{20}\NormalTok{, }\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\KeywordTok{length}\NormalTok{(x))\{}
+    \KeywordTok{segments}\NormalTok{(x[i}\OperatorTok{-}\DecValTok{1}\NormalTok{], y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{], x[i], y[i], }\DataTypeTok{col=}\StringTok{"red"}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{Rrk4<-}\ControlFlowTok{function}\NormalTok{(dy, ti, tf, y0, h, }\DataTypeTok{graficar=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{numpendientes=}\DecValTok{10}\NormalTok{)\{}
+\NormalTok{  t<-}\KeywordTok{seq}\NormalTok{(ti, tf, h)}
+\NormalTok{  y<-}\KeywordTok{c}\NormalTok{(y0)}
+  \KeywordTok{cat}\NormalTok{(}\StringTok{"x    |y         |k1        |k2        |k3        |k4       |error absoluto}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\KeywordTok{length}\NormalTok{(t))\{}
+\NormalTok{    k1=h}\OperatorTok{*}\KeywordTok{f}\NormalTok{(dy, t[i}\OperatorTok{-}\DecValTok{1}\NormalTok{], y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{])}
+\NormalTok{    k2=h}\OperatorTok{*}\KeywordTok{f}\NormalTok{(dy, t[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{h}\OperatorTok{/}\DecValTok{2}\NormalTok{, y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{k1}\OperatorTok{*}\NormalTok{(}\FloatTok{0.5}\NormalTok{))}
+\NormalTok{    k3=h}\OperatorTok{*}\KeywordTok{f}\NormalTok{(dy, t[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{h}\OperatorTok{/}\DecValTok{2}\NormalTok{, y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{k2}\OperatorTok{*}\NormalTok{(}\FloatTok{0.5}\NormalTok{))}
+\NormalTok{    k4=h}\OperatorTok{*}\KeywordTok{f}\NormalTok{(dy, t[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{h, y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{k3)}
+\NormalTok{    y<-}\KeywordTok{c}\NormalTok{(y, y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\DecValTok{1}\OperatorTok{/}\DecValTok{6}\OperatorTok{*}\NormalTok{(k1}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{k2}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{k3}\OperatorTok{+}\NormalTok{k4))}
+    \KeywordTok{cat}\NormalTok{(t[i}\OperatorTok{-}\DecValTok{1}\NormalTok{],}\StringTok{" | "}\NormalTok{, y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{],}\StringTok{" | "}\NormalTok{,k1,}\StringTok{" | "}\NormalTok{,k2,}\StringTok{" | "}\NormalTok{,k3,}\StringTok{" | "}\NormalTok{,k4,}\StringTok{" | "}\NormalTok{,}\KeywordTok{obtenerErrorAbsoluto}\NormalTok{(t[i}\OperatorTok{-}\DecValTok{1}\NormalTok{],y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]),}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{  \}}
+  \ControlFlowTok{if}\NormalTok{ (graficar)\{}
+    \KeywordTok{graficarCampoPendiente}\NormalTok{(}\KeywordTok{min}\NormalTok{(t), }\KeywordTok{max}\NormalTok{(t), }\KeywordTok{min}\NormalTok{(y), }\KeywordTok{max}\NormalTok{(y), dy, numpendientes, }\StringTok{"RK4"}\NormalTok{)}
+    \KeywordTok{graficarSolucionNumerica}\NormalTok{(t, y)}
+\NormalTok{  \}}
+\NormalTok{  rta<-}\KeywordTok{list}\NormalTok{(}\DataTypeTok{w=}\NormalTok{y, }\DataTypeTok{t=}\NormalTok{t)}
+\NormalTok{\}}
+
+\NormalTok{rk3<-}\ControlFlowTok{function}\NormalTok{(dy, ti, tf, y0, h, }\DataTypeTok{graficar=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{numpendientes=}\DecValTok{10}\NormalTok{)\{}
+\NormalTok{  t<-}\KeywordTok{seq}\NormalTok{(ti, tf, h)}
+\NormalTok{  y<-}\KeywordTok{c}\NormalTok{(y0)}
+  \KeywordTok{cat}\NormalTok{(}\StringTok{"x    |y         |k1         |k2        |k3       |error absoluto}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\KeywordTok{length}\NormalTok{(t))\{}
+\NormalTok{    k1=h}\OperatorTok{*}\KeywordTok{f}\NormalTok{(dy, t[i}\OperatorTok{-}\DecValTok{1}\NormalTok{], y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{])}
+\NormalTok{    k2=h}\OperatorTok{*}\KeywordTok{f}\NormalTok{(dy, t[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{h}\OperatorTok{/}\DecValTok{2}\NormalTok{, y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{k1}\OperatorTok{*}\NormalTok{(}\FloatTok{0.5}\NormalTok{))}
+\NormalTok{    k3=h}\OperatorTok{*}\KeywordTok{f}\NormalTok{(dy, t[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{h, y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{-}\NormalTok{k1}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{k2)}
+\NormalTok{    y<-}\KeywordTok{c}\NormalTok{(y, y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\DecValTok{1}\OperatorTok{/}\DecValTok{6}\OperatorTok{*}\NormalTok{(k1}\OperatorTok{+}\DecValTok{4}\OperatorTok{*}\NormalTok{k2}\OperatorTok{+}\NormalTok{k3))}
+    \KeywordTok{cat}\NormalTok{(t[i}\OperatorTok{-}\DecValTok{1}\NormalTok{],}\StringTok{" | "}\NormalTok{, y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{],}\StringTok{" | "}\NormalTok{,k1,}\StringTok{" | "}\NormalTok{,k2,}\StringTok{" | "}\NormalTok{,k3,}\StringTok{" | "}\NormalTok{,}\KeywordTok{obtenerErrorAbsoluto}\NormalTok{(t[i}\OperatorTok{-}\DecValTok{1}\NormalTok{],y[i}\OperatorTok{-}\DecValTok{1}\NormalTok{]),}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{  \}}
+  \ControlFlowTok{if}\NormalTok{ (graficar)\{}
+    \KeywordTok{graficarCampoPendiente}\NormalTok{(}\KeywordTok{min}\NormalTok{(t), }\KeywordTok{max}\NormalTok{(t), }\KeywordTok{min}\NormalTok{(y), }\KeywordTok{max}\NormalTok{(y), dy, numpendientes, }\StringTok{"RK3"}\NormalTok{)}
+    \KeywordTok{graficarSolucionNumerica}\NormalTok{(t, y)}
+\NormalTok{  \}}
+\NormalTok{  rta<-}\KeywordTok{list}\NormalTok{(}\DataTypeTok{w=}\NormalTok{y, }\DataTypeTok{t=}\NormalTok{t)}
+\NormalTok{\}}
+
+\NormalTok{r<-}\KeywordTok{Rrk4}\NormalTok{(}\KeywordTok{expression}\NormalTok{(x}\OperatorTok{+}\NormalTok{y}\OperatorTok{+}\DecValTok{1}\OperatorTok{-}\NormalTok{x}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## x    |y         |k1        |k2        |k3        |k4       |error absoluto
+## 0  |  1  |  0.2  |  0.21475  |  0.2154875  |  0.2305488  |  0 
+## 0.1  |  1.215171  |  0.2305171  |  0.2457929  |  0.2465567  |  0.2621727  |  0.1048288 
+## 0.2  |  1.461402  |  0.2621402  |  0.2779972  |  0.2787901  |  0.2950192  |  0.2185966 
+## 0.3  |  1.739858  |  0.2949858  |  0.3114851  |  0.31231  |  0.3292168  |  0.3401402 
+## 0.4  |  2.051823  |  0.3291823  |  0.3463914  |  0.3472519  |  0.3649075  |  0.4681739 
+## 0.5  |  2.398719  |  0.3648719  |  0.3828655  |  0.3837652  |  0.4022485  |  0.6012768 
+## 0.6  |  2.782116  |  0.4022116  |  0.4210722  |  0.4220152  |  0.4414132  |  0.7378787 
+## 0.7  |  3.20375  |  0.441375  |  0.4611937  |  0.4621846  |  0.4825934  |  0.8762442 
+## 0.8  |  3.665537  |  0.4825537  |  0.5034314  |  0.5044753  |  0.5260012  |  1.014455 
+## 0.9  |  4.169599  |  0.5259599  |  0.5480078  |  0.5491102  |  0.5718709  |  1.150392
+\end{verbatim}
+
+\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{r2<-}\KeywordTok{rk3}\NormalTok{(}\KeywordTok{expression}\NormalTok{(x}\OperatorTok{+}\NormalTok{y}\OperatorTok{+}\DecValTok{1}\OperatorTok{-}\NormalTok{x}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## x    |y         |k1         |k2        |k3       |error absoluto
+## 0  |  1  |  0.2  |  0.21475  |  0.23195  |  0 
+## 0.1  |  1.215158  |  0.2305158  |  0.2457916  |  0.2636226  |  0.1048165 
+## 0.2  |  1.461376  |  0.2621376  |  0.2779945  |  0.2965227  |  0.2185703 
+## 0.3  |  1.739816  |  0.2949816  |  0.3114806  |  0.3307795  |  0.3400979 
+## 0.4  |  2.051763  |  0.3291763  |  0.3463851  |  0.3665357  |  0.4681134 
+## 0.5  |  2.398638  |  0.3648638  |  0.382857  |  0.4039488  |  0.6011956 
+## 0.6  |  2.782012  |  0.4022012  |  0.4210612  |  0.4431933  |  0.737774 
+## 0.7  |  3.203618  |  0.4413618  |  0.4611799  |  0.4844616  |  0.8761127 
+## 0.8  |  3.665375  |  0.4825375  |  0.5034144  |  0.5279667  |  1.014293 
+## 0.9  |  4.169402  |  0.5259402  |  0.5479872  |  0.5739437  |  1.150196
+\end{verbatim}
+
+\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-6-2.pdf}
+
+
+\end{document}

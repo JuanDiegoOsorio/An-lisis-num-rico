@@ -1,0 +1,305 @@
+---
+title: "Taller No. 2"
+author: "Kevin Pelaez - Juan Diego Osorio"
+date: "28 de octubre de 2018"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+    theme: journal
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r echo=FALSE}
+library(pracma)
+library(PolynomF)
+library(phaseR)
+```
+
+
+## PUNTO #1
+
+
+1. Considere un cuerpo con temperatura interna **T**𝑇 el cual se encuentra en un ambiente
+con temperatura constante**Te**. Suponga que su masa **m**𝑚 concentrada en un solo
+punto. Entonces la transferencia de calor entre el cuerpo y el entorno externo puede
+ser descrita con la ley de Stefan-Boltzmann:
+
+$$
+v(t) = εγS(T^4(t)-T_e^4) 
+$$
+  Donde, **t** es tiempo y **ε** es la constante de Boltzmann $(ε = 5.6x10^-8 J/m^2K^2s)$, **γ** es la constante de "Emisividad" del cuerpo, **S** el área de superficie y **v** es la tasa de transferencia de calor. La tasa de variacion de la energía $dT/dt = -v(t)/mC$ (C indica el calor específico del material  que constituye el cuerpo). En consecuencia,
+
+$$
+dT/dt = -εγS(T^4(t)-T_e^4)/mC
+$$
+  Usando el método de Euler (en R) y 20 intervalos iguales y t variando de 0 a 200 segundos, resuelva numéricamente la ecuación, si el cuerpo es un cubo de lados de longitud 1m y masa igual a 1Kg. Asuma, que T0 = 180K, Te = 200K, g = 0.5 y C = 100J/(Kg/K). Hacer una representación gráfica del resultado.
+
+
+```{r, echo = FALSE}
+
+
+metodoEuler <- function(f, h, xi, yi, xf)
+{
+  N = (xf - xi) / h
+  x = y = numeric(N+1)
+  x[1] = xi; 
+  y[1] = yi;
+  i = 1
+  while (i <= N)
+  {
+    x[i+1] = x[i]+h
+    y[i+1] = y[i]+(h*f(x[i],y[i]))
+    i = i+1
+  }
+  return (data.frame(X = x, Y = y))
+}
+
+f <- function(x,y) { (- 5.6e-8  * 0.05 *6* (y^4 - 200^4)) /100}
+
+e1 = metodoEuler(f, 10, 0, 180, 200)
+
+e1[nrow(e1),]
+
+par(mfrow = c(1,2))
+
+xx <- c(-3, 3); yy <- c(-1, 1)
+vectorfield(f, xx, yy, scale = 0.1)
+for (xs in seq(-1, 1, by = 0.25)) 
+{
+  sol <- rk4(f, -1, 1, xs, 100)
+  lines(sol$x, sol$y, col="purple")
+}
+title(main="Campo Vectorial", col.main="black", font.main=4)
+
+plot(e1, col = "darkblue", main = "Grafica")
+
+
+
+```
+
+## PUNTO #2
+
+2.  Obtenga cinco puntos de la solución de la ecuación, utilizando el método de Taylor (los tres primeros términos)con h=0.1 implemente en R
+
+$$
+    dy/dx - (x+y) = 1 - x^2; y(0) =1 
+$$
+
+Grafique su solución y compare con la solución exacta, cuál es el error de truncamiento
+en cada paso
+
+```{r}
+
+funcion4punto <- function(x){
+  exp(x) * (x^2* exp(-x) + x* exp(-x) + 1)
+}
+
+num <- seq(1:4)
+plotsish <- c(taylor(funcion4punto, x0=0, n = 3))
+
+plot(plotsish, col = "darkgreen", main = "TAYLOR")
+
+poliajuste <- poly.calc(num,plotsish)
+curve(poliajuste,add = TRUE, col = "yellow")
+
+```
+
+
+
+## PUNTO #3
+
+3. Obtenga 20 puntos de la solución de la ecuación, utilizando el método de Euler (los tres primeros términos) con h=0.1
+$$
+    dy/dx - (x+y) = 1 - x^2; y(0) =1 
+$$
+Grafique su solución y compare con la solución exacta, cuál es el error de truncamiento en cada paso
+
+
+## PUNTO #4
+
+Implemente en R el siguiente algoritmo y aplíquelo para resolver la ecuación anterior
+
+1) Defina h y la cantidad de puntos a calcular m
+2) Defina  f(x,y) y la condicion iniccial (x0,y0)
+3) para i =12, ..., m
+4) K1= hf(xi, yi)
+5) k2 = hf(xi + h, yi +h)
+6) yi+1 = yi + 1/2 (k1 + k2)
+7) xi+1 = xi + h
+8) fin
+
+```{r}
+
+funcion4punto <- function(x,y){
+  return  (exp(x) * (x^2* exp(-x) + x* exp(-x) + 1))
+}
+
+m <- 5
+  
+h <- 0.1
+ x0 <- 1
+ y0 <- 0
+for (i  in 1:m){
+  k1 <- h * funcion4punto(x0, y0)
+  k2 <- h * funcion4punto(x0 + h, y0+h)
+  y0 <- y0 + 0.5 * (k1 + k2)
+  x0 <- x0 + h
+ }
+
+
+
+
+
+```
+
+
+## PUNTO #5
+
+Utilizar la siguiente variación en el método de Euler, para resolver una ecuación diferencial ordinaria de primer orden, la cual calcula el promedio de las pendientes en cada paso
+
+$$
+
+y_i+{1 =} y_i + h/2 f((x_i,y_i) + f(x_i+{1, }y_i+{1) })
+
+$$
+
+Implemente un código en R, para este método y obtenga 10 puntos de la solución con h=0.1,
+grafíquela y compárela con el método de Euler:
+
+
+$$
+    dy/dx - (x+y) = 1 - x^2 =0 ; y(0) =1 
+$$
+
+```{r}
+
+variacionMetodoEuler <- function(f, h, xi, yi, xf)
+{
+  N = (xf - xi) / h
+  x = y = numeric(N+1)
+  x[1] = xi; 
+  y[1] = yi;
+  i = 1
+  while (i <= N)
+  {
+    x[i+1] = x[i]+h
+    y[i+1] = y[i]+(h/2)*(f(x[i],y[i]))
+    i = i+1
+  }
+  return (data.frame(X = x, Y = y))
+}
+f <- function(x,y) {x+y-1+x^2}
+
+e1 = variacionMetodoEuler(f, 0.1, 0, 1, 1)
+
+e1[nrow(e1),]
+
+par(mfrow = c(1,2))
+
+xx <- c(-3, 3); yy <- c(-1, 1)
+vectorfield(f, xx, yy, scale = 0.1)
+for (xs in seq(-1, 1, by = 0.25)) 
+{
+  sol <- rk4(f, -1, 1, xs, 100)
+  lines(sol$x, sol$y, col="purple")
+}
+title(main="Campo Vectorial", col.main="black", font.main=4)
+
+plot(e1, col = "darkblue", main = "Grafica")
+
+
+
+```
+
+
+## PUNTO #7
+
+ Pruebe el siguiente código en R del método de Runge Kutta de tercer y cuarto orden y obtenga 10 puntos de la solución con h=0.1, grafíquela y compárela con el método de Euler:
+
+$$
+    dy/dx - (x+y) = 1 - x^2 =0 ; y(0) =1 
+$$
+
+
+
+```{r}
+
+f<-function(fcn,x,y){
+  return(eval(fcn))
+}
+
+obtenerErrorAbsoluto<-function(x,y){
+  solucion=exp(x)*((-x*exp(-x))-exp(-x)+2)
+  return(abs(y-solucion))
+}
+
+graficarCampoPendiente<-function(x0, xn, y0, yn, fcn, numpendientes, metodo){
+  apma1 <- function(t, y, parameters){
+    a <- parameters[1] 
+    dy <- a*(f(fcn, t, y))
+    list(dy)
+  } 
+  apma1.flowField <- flowField(apma1, x = c(x0, xn), 
+                               y   = c(y0, yn), parameters = c(1), 
+                               points = numpendientes, system = "one.dim", 
+                               add = FALSE, xlab = "x", ylab = "y", 
+                               main = metodo)
+  grid()
+}
+
+graficarSolucionNumerica<-function (x, y){
+  points (x, y, pch=20, col="blue")
+  for (i in 2:length(x)){
+    segments(x[i-1], y[i-1], x[i], y[i], col="red")
+  }
+}
+
+Rrk4<-function(dy, ti, tf, y0, h, graficar=TRUE, numpendientes=10){
+  t<-seq(ti, tf, h)
+  y<-c(y0)
+  cat("x    |y         |k1        |k2        |k3        |k4       |error absoluto\n")
+  for(i in 2:length(t)){
+    k1=h*f(dy, t[i-1], y[i-1])
+    k2=h*f(dy, t[i-1]+h/2, y[i-1]+k1*(0.5))
+    k3=h*f(dy, t[i-1]+h/2, y[i-1]+k2*(0.5))
+    k4=h*f(dy, t[i-1]+h, y[i-1]+k3)
+    y<-c(y, y[i-1]+1/6*(k1+2*k2+2*k3+k4))
+    cat(t[i-1]," | ", y[i-1]," | ",k1," | ",k2," | ",k3," | ",k4," | ",obtenerErrorAbsoluto(t[i-1],y[i-1]),"\n")
+  }
+  if (graficar){
+    graficarCampoPendiente(min(t), max(t), min(y), max(y), dy, numpendientes, "RK4")
+    graficarSolucionNumerica(t, y)
+  }
+  rta<-list(w=y, t=t)
+}
+
+rk3<-function(dy, ti, tf, y0, h, graficar=TRUE, numpendientes=10){
+  t<-seq(ti, tf, h)
+  y<-c(y0)
+  cat("x    |y         |k1         |k2        |k3       |error absoluto\n")
+  for(i in 2:length(t)){
+    k1=h*f(dy, t[i-1], y[i-1])
+    k2=h*f(dy, t[i-1]+h/2, y[i-1]+k1*(0.5))
+    k3=h*f(dy, t[i-1]+h, y[i-1]-k1+2*k2)
+    y<-c(y, y[i-1]+1/6*(k1+4*k2+k3))
+    cat(t[i-1]," | ", y[i-1]," | ",k1," | ",k2," | ",k3," | ",obtenerErrorAbsoluto(t[i-1],y[i-1]),"\n")
+  }
+  if (graficar){
+    graficarCampoPendiente(min(t), max(t), min(y), max(y), dy, numpendientes, "RK3")
+    graficarSolucionNumerica(t, y)
+  }
+  rta<-list(w=y, t=t)
+}
+
+r<-Rrk4(expression(x+y+1-x^2), 0, 1, 1, 0.1)
+
+r2<-rk3(expression(x+y+1-x^2), 0, 1, 1, 0.1)
+
+
+```
+
