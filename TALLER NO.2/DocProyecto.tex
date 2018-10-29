@@ -226,6 +226,56 @@ de truncamiento en cada paso
   error de truncamiento en cada paso
 \end{enumerate}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{metodoEuler <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f, h, xi, yi, xf)}
+\NormalTok{\{}
+\NormalTok{  N =}\StringTok{ }\NormalTok{(xf }\OperatorTok{-}\StringTok{ }\NormalTok{xi) }\OperatorTok{/}\StringTok{ }\NormalTok{h}
+\NormalTok{  x =}\StringTok{ }\NormalTok{y =}\StringTok{ }\KeywordTok{numeric}\NormalTok{(N}\OperatorTok{+}\DecValTok{1}\NormalTok{)}
+\NormalTok{  x[}\DecValTok{1}\NormalTok{] =}\StringTok{ }\NormalTok{xi; }
+\NormalTok{  y[}\DecValTok{1}\NormalTok{] =}\StringTok{ }\NormalTok{yi;}
+\NormalTok{  i =}\StringTok{ }\DecValTok{1}
+  \ControlFlowTok{while}\NormalTok{ (i }\OperatorTok{<=}\StringTok{ }\NormalTok{N)}
+\NormalTok{  \{}
+\NormalTok{    x[i}\OperatorTok{+}\DecValTok{1}\NormalTok{] =}\StringTok{ }\NormalTok{x[i]}\OperatorTok{+}\NormalTok{h}
+\NormalTok{    y[i}\OperatorTok{+}\DecValTok{1}\NormalTok{] =}\StringTok{ }\NormalTok{y[i]}\OperatorTok{+}\NormalTok{(h}\OperatorTok{*}\KeywordTok{f}\NormalTok{(x[i],y[i]))}
+\NormalTok{    i =}\StringTok{ }\NormalTok{i}\OperatorTok{+}\DecValTok{1}
+\NormalTok{  \}}
+  \KeywordTok{return}\NormalTok{ (}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{X =}\NormalTok{ x, }\DataTypeTok{Y =}\NormalTok{ y))}
+\NormalTok{\}}
+
+\NormalTok{funcion3punto <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x,y) \{ }\KeywordTok{exp}\NormalTok{(x) }\OperatorTok{*}\StringTok{ }\NormalTok{(x}\OperatorTok{^}\DecValTok{2}\OperatorTok{*}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{x) }\OperatorTok{+}\StringTok{ }\NormalTok{x}\OperatorTok{*}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{x) }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)\}}
+
+\NormalTok{e1 =}\StringTok{ }\KeywordTok{metodoEuler}\NormalTok{(f, }\FloatTok{0.1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+
+\NormalTok{e1[}\KeywordTok{nrow}\NormalTok{(e1),]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    X      Y
+## 21 2 1.5376
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{); yy <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\KeywordTok{vectorfield}\NormalTok{(f, xx, yy, }\DataTypeTok{scale =} \FloatTok{0.1}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (xs }\ControlFlowTok{in} \KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.25}\NormalTok{)) }
+\NormalTok{\{}
+\NormalTok{  sol <-}\StringTok{ }\KeywordTok{rk4}\NormalTok{(f, }\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, xs, }\DecValTok{100}\NormalTok{)}
+  \KeywordTok{lines}\NormalTok{(sol}\OperatorTok{$}\NormalTok{x, sol}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{col=}\StringTok{"purple"}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{title}\NormalTok{(}\DataTypeTok{main=}\StringTok{"Campo Vectorial"}\NormalTok{, }\DataTypeTok{col.main=}\StringTok{"black"}\NormalTok{, }\DataTypeTok{font.main=}\DecValTok{4}\NormalTok{)}
+
+\KeywordTok{plot}\NormalTok{(e1, }\DataTypeTok{col =} \StringTok{"darkblue"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Grafica"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-4-1.pdf}
+
 \subsection{PUNTO \#4}\label{punto-4}
 
 Implemente en R el siguiente algoritmo y aplíquelo para resolver la
@@ -280,7 +330,7 @@ promedio de las pendientes en cada paso
 
 \$\$
 
-y\_i+\{1 =\} y\_i + h/2 f((x\_i,y\_i) + f(x\_i+\{1, \}y\_i+\{1) \})
+y\_\{i+1\} = y\_i + h/2 f((x\_i,y\_i) + f(x\_\{i+1\}, y\_\{i+1\}) )
 
 \$\$
 
@@ -338,7 +388,7 @@ solución con h=0.1, grafíquela y compárela con el método de Euler:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-5-1.pdf}
+\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-6-1.pdf}
 
 \subsection{PUNTO \#7}\label{punto-7}
 
@@ -437,7 +487,7 @@ compárela con el método de Euler:
 ## 0.9  |  4.169599  |  0.5259599  |  0.5480078  |  0.5491102  |  0.5718709  |  1.150392
 \end{verbatim}
 
-\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-6-1.pdf}
+\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -459,7 +509,7 @@ compárela con el método de Euler:
 ## 0.9  |  4.169402  |  0.5259402  |  0.5479872  |  0.5739437  |  1.150196
 \end{verbatim}
 
-\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-6-2.pdf}
+\includegraphics{DocProyecto_files/figure-latex/unnamed-chunk-7-2.pdf}
 
 
 \end{document}
