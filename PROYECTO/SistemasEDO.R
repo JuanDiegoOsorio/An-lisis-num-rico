@@ -2,11 +2,11 @@ install.packages("manipulate")
 install.packages("devtools")
 library(devtools)
 library(manipulate)
-devtools::install_github("ProjectMOSAIC/fetch")
-require("ProjectMOSAIC/fetch")
+library (lattice)
+devtools::install_github("ProjectMOSAIC/fetch", force = TRUE)
 fetch::fetchData("mPP.R")
 fetch::fetchData("DiffEQ.R")
-mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
+mpp = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
   if (!require(manipulate) | !require(lattice)) stop("Must have manipulate package.")
   on.exit()
   
@@ -287,12 +287,12 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
     )
   }
 }
-  
-  
-  
-  SIR = function(S, I){ a =0.0026; b=0.5
-  dS = -a*S;
-  dI = a*S*I - b*I
-  return (c(dS,dI))}
-  
-  mPP (DE= SIR, xlim = c(0,1000), ylim = c(0,1000))
+
+
+
+SIR = function(S, I){ a =0.0026; b=0.5
+dS = -a*S;
+dI = a*S*I - b*I
+return (c(dS,dI))}
+
+mPP (DE= SIR, xlim = c(0,1000), ylim = c(0,1000))
