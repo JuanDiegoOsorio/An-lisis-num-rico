@@ -6,9 +6,10 @@ devtools::install_github("ProjectMOSAIC/fetch")
 require("ProjectMOSAIC/fetch")
 fetch::fetchData("mPP.R")
 fetch::fetchData("DiffEQ.R")
-mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
-  if (!require(manipulate) | !require(lattice)) stop("Must have manipulate package.")
-  on.exit()
+mpp <- function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
+  
+  print("MAMAPITO ENTRA")
+  
   
   Tcolors = c("red","cornflowerblue", "darkolivegreen3","gold","magenta")
   TcolorsBack = c("deeppink","blue","darkolivegreen","gold3","magenta4")
@@ -102,6 +103,7 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
     
     x <- matrix(seq(xlim[1],xlim[2], length=resol), byrow=TRUE, resol,resol);
     y <- matrix(seq(ylim[1],ylim[2], length=resol),byrow=FALSE, resol, resol);
+    print (x)
     npts <- resol*resol;
     xspace <- abs(diff(xlim))/(resol*5);
     yspace <- abs(diff(ylim))/(resol*5);
@@ -287,12 +289,25 @@ mPP = function( DE=predator.prey, xlim=c(-10,2000),ylim=c(-10,2000)) {
     )
   }
 }
-  
+
   
   
   SIR = function(S, I){ a =0.0026; b=0.5
   dS = -a*S;
   dI = a*S*I - b*I
   return (c(dS,dI))}
-  
+
+
+
   mPP (DE= SIR, xlim = c(0,1000), ylim = c(0,1000))
+    
+  
+   arr <- seq(0:1000)
+   arr2 <- seq (0:1000)
+   for (i in 0:1000){
+     print( i )
+     print(SIR (arr[i],arr2[i]))
+   }
+   
+   
+   
